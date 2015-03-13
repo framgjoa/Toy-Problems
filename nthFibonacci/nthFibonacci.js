@@ -22,7 +22,29 @@
 
 var nthFibonacci = function (n) {
   // TODO: implement me!
+  var counter = 0;
+  var runningTotal= 0;
+  var previousTotal=0;
+
+
+ var fib = function(a, b){
+   while(counter <= n){
+  	  counter++;
+  	  previousTotal=a;
+  	  runningTotal= a+b;
+
+  	  var returnTot = fib(previousTotal, runningTotal) || b;
+  	 // print(returnTot);
+  	  runningTotal = returnTot;
+
+     }
+  }
+
+
+fib(0,1);   //inital values to see sequence
+return runningTotal;
 };
 
+//print(nthFibonacci(5));
 
 
