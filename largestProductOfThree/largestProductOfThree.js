@@ -1,6 +1,10 @@
 /* Write a function that finds the largest possible product of any three numbers
  * from an array.
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 1774b637dfa8393c541fe117d96d24721de3bf77
  * Example:
  * largestProductOfThree([2, 1, 3, 7]) === 42
  *
@@ -8,6 +12,7 @@
  */
 
 
+<<<<<<< HEAD
 var largestProductOfThree = function(array) {  //assuming array.length>=3
   // TODO: everything
   var sortedArray = array.sort();
@@ -60,3 +65,8 @@ var testArr3 = [-2, -5, 0, 1, 2];
 largestProductOfThree(testArr1);
 
 
+=======
+var largestProductOfThree = function(array) {
+  // TODO: everything
+};
+>>>>>>> 1774b637dfa8393c541fe117d96d24721de3bf77
