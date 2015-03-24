@@ -23,9 +23,16 @@
  *
 */
 
-var bind = function(
-) {
-  // TODO: Your code here
+var bind = function(bindingFunction, obj) {
+
+  var args = Array.prototype.slice.call(arguments, 2);
+  var boundFunction = bindingFunction.call(args);
+
+  for(var key in bindingFunction)
+   if (obj.hasOwnProperty(key)){
+    obj.bindingFunction = bindingFunction;
+   }
+  return boundFunction;
 };
 
 /*
@@ -53,7 +60,9 @@ var bind = function(
  *
 */
 
-Function.prototype.bind = function(
-) {
+Function.prototype.bind = function(obj) {
   // TODO: Your code here
+  var args = Array.prototype.slice.call(arguments, 2);
+   return obj.Function = function(){ Function(obj)};
+
 };
