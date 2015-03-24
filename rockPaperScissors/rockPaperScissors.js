@@ -48,6 +48,7 @@ var rockPaperScissors = function (rounds) {
 
 //Test cases:
 //rockPaperScissors();
+//rockPaperScissors(1.5);
 //rockPaperScissors(-1);
 //rockPaperScissors(0);
 //rockPaperScissors(1);

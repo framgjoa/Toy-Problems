@@ -25,7 +25,7 @@ var checkString = function(string){
 
   		characterBase.push( string[i] ); //loads array of found characters
   		tempString.slice(0,-1);			  //removes letter just checked
-  		//print (characterBase);
+  		print (characterBase);
   		checkString(tempString);			//checks the rest of string
   		
   	}
@@ -40,7 +40,7 @@ var checkString = function(string){
     };
 
 checkString(tempString);
-//print(result);
+print(result);
 return result;
 };
 

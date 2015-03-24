@@ -34,7 +34,7 @@ var nthFibonacci = function (n) {
   	  runningTotal= a+b;
 
   	  var returnTot = fib(previousTotal, runningTotal) || b;
-  	 // print(returnTot);
+  	  print(returnTot);
   	  runningTotal = returnTot;
 
      }
@@ -45,6 +45,6 @@ fib(0,1);   //inital values to see sequence
 return runningTotal;
 };
 
-//print(nthFibonacci(5));
+print(nthFibonacci(5));
 
-
+//ref: http://blog.javascriptroom.com/2013/01/10/fibonacci-an-introduction-to-recursion/

@@ -5,7 +5,7 @@
  * have already encountered!
  *
  * Example: commonCharacters('acexivou', 'aegihobu')
- * Returns: 'aeiou'
+ * Returns: 'aeiou'dddd
  *
  * Extra credit: Extend your function to handle more than two input strings.
  */
