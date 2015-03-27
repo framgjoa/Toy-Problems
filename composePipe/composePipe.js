@@ -1,7 +1,7 @@
 /*
  * Write Compose and Pipe functions.
- * 
- * Step 1: Implement the function Compose: 
+ *
+ * Step 1: Implement the function Compose:
  *
  * Compose should return a function that is the composition of a list of
  * functions of arbitrary length.
@@ -19,11 +19,11 @@
  * Step 2: Implement the function Pipe:
  *
  * Pipe composes a series of functions and returns the resulting function.
- * 
+ *
  * Each function is called on the return value of the preceding function.
  *
  * You can view pipe as moving left to right through its arguments.
- * 
+ *
  * Pipe Example:
  *  var add2 = function(number){ return number + 2; }
  *  var multiplyBy3 = function(number){ return number * 3; }
@@ -34,7 +34,41 @@
 'use strict';
 
 var compose = function(){
+  var args = Array.prototype.slice.call(arguments);
+
+
+
+for (var i = arguments.length -1 ; i<=0; i--){
+  var currentFunction = function(value) { arguments[arguments.length-1](value) };
+
+  var currentCompose = currentFunction((value), function(data){   //can use callback to seed next function?
+
+  })
+
+  arguments[arguments.length-1](value);
+
+}
+
+
 };
 
-var pipe = function(){
+var pipe = function(){  //Need to pass in the value called for all the functions
+  var args = Array.prototype.slice.call(arguments);
+  var length = args.length;
+  var i = 0;
+  print(this);
+  var tempValue = this; //Not sure how to get value called on piped functions
+  for(var i =0; i< length; i++){
+    var tempValue = arguments[i](tempValue);
+
+  }
+  print(tempValue);
+  return tempValue;
 };
+
+//Pipe Example:
+   var add2 = function(number){ return number + 2; };
+   var multiplyBy3 = function(number){ return number * 3; };
+   pipe(add2, multiplyBy3)(5); // 21
+   pipe(add2, multiplyBy3, multiplyBy3)(5); // 63
+
