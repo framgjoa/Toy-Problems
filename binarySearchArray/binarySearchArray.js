@@ -53,3 +53,7 @@ var binarySearch = function (array, target) {
 var testArr1 = [1,2,3,4,5, 6, 7,8]
 binarySearch(testArr1, 4);
 
+
+/* Solution code below
+*/
+
