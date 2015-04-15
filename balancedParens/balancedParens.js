@@ -24,16 +24,41 @@
  *
  */
 var balancedParens = function(input){
-  var hasOpen = false;
-  var leadingOpen = true;
-  var closingClosed = true;
+  // var hasOpen = false;
+  // var leadingOpen = true;
+  // var closingClosed = true;
+  var stack = []; //keep track of order of opens
   //need a base case where NO parens still returns true
-  var parenOpens = [ '(', '[', '{'];  //same index per array for their open:close pair
-  var parensClosed = [')', ']', '}'];
+  var pairs = {
+    '(' : ')',
+    '[' : ']',
+    '{' : '}'
+  };
+  //var parenOpens = [ '(', '[', '{'];  //same index per array for their open:close pair
+  //var parensClosed = [')', ']', '}'];
+  print("Case of: ", input)
 
-//RegEx notes
+  for(var i = 0; i <input.length; i++){
+    var chr = input[i];
+    if(pairs[chr]){
+      stack.push(chr);
+      print("Stack pushed: ", stack);
+    }
+    else if( chr ===')'|| chr===']' || chr==='}'){
+      if (pairs[stack.pop()] !== chr){
+        print("Not balanced at : ", chr, "false")
+        return false;
+      }
+
+    // print("Stack length: ", stack.length)
+    // return stack.length ===0; //this also covers the trival case (no brances)
+    }
+
+
+  }
 //need the ANY condition [ ([{ ]
-
+  print("Stack length: ", stack.length, !stack.length);
+  return stack.length ===0;
 
  //Find all OPENs. Store these in array or object(type:index maybe?) --> don't need index, just order
  //if leadingOpen array has any elements, continue, else return true
@@ -47,13 +72,13 @@ var balancedParens = function(input){
 
 //Recusion? even that needs to know all the leadingOpens for where to start
 
-print(leadingOpen&&closingClosed);
-return (leadingOpen&&closingClosed);
+//print(leadingOpen&&closingClosed);
+//return (leadingOpen&&closingClosed);
 };
 
 // Examples:
-   // balancedParens('');
-  //  balancedParens('(');  // false
-  //  balancedParens('()'); // true
-  //  balancedParens(')(');  // false
-  //  balancedParens('(())');  // true
+    balancedParens(''); //true
+    balancedParens('(');  // false
+    balancedParens('()'); // true
+    balancedParens(')(');  // false
+    balancedParens('(())');  // true
