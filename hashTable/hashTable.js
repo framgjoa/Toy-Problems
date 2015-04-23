@@ -7,21 +7,42 @@ var makeHashTable = function(){
   var result = {};
   var storage = [];
   var storageLimit = 1000;
-  result.insert = function(/*...*/ 
-){
-    // TODO: implement `insert()`
+  result.insert = function(key, value){
+    // Check the index (hashed) value of the key
+    var tempIndex = getIndexBelowMaxForKey(key);
+    if (!storage[tempIndex]){
+         // If no collisions, insert
+         var tempArray = new Array(key, value);
+         storage[tempIndex].push(tempArray);
+    }
+    else{
+    // If collision, make a bucket
+    // Put existing values into bucket
+      var tempBucket = storage[tempIndex];
+      // Add new value to bucket
+      var tempArray = new Array(key, value);
+      tempBucket.push(tempArray);
+      // Put bucket in previous location
+      storage[tempIndex] = tempBucket;
+    }
   };
 
-  result.retrieve = function(/*...*/ 
-){
-    // TODO: implement `retrieve()`
+  result.retrieve = function(key){
+    // Find index of the key
+    var tempIndex = getIndexBelowMaxForKey(key);
+    // Return hashed index of that key
+    return (storage[tempIndex]) ? (storage[tempIndex][key]) : undefined;
+
   };
 
-  result.remove = function(/*...*/ 
-){
-    // TODO: implement `remove()`
+  result.remove = function(key){
+    // Find index of the key
+    var tempIndex = getIndexBelowMaxForKey(key);
+    // If the key value exists in the hash table, remove it and its value
+    if (storage[tempIndex][key]){
+      delete storage[tempIndex][key];
+    }
   };
-
   return result;
 };
 
@@ -37,3 +58,6 @@ var getIndexBelowMaxForKey = function(str, max){
   }
   return hash % max;
 };
+
+
+
