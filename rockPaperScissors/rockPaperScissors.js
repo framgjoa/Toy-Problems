@@ -18,37 +18,43 @@
 *
 */
 
-var rockPaperScissors = function (rounds) {
-  // TODO: your solution here
-  var sampleThrows = ["rock", "paper", "scissors"];  
-  var randomIndices=[];   //keepig this a variable in case future functionality (more than 3 rounds) required
-  var finalHand = [];
-  var rounds;
+var rockPaperScissors = function(rounds) {
 
-  typeof(rounds) === "number" ? rounds: rounds =3; //default to 3 rounds is user does not provide a value
-  if (rounds <= 0){                                //flag if an unrealistic value of rounds requested
-  	finalHand.push("Please input how many rounds you'd like to play. Default is three.");
+  var sampleThrows = ["rock", "paper", "scissors"];
+  var rounds = Math.floor( rounds ) || 3;
+  var round = [];
+  var results = [];
+  var roundsToGo = rounds;
+
+
+
+  var recurse = function(roundsToGo){
+
+    for(var i = 0; i < sampleThrows.length; i++){
+      if(round.length === rounds){      //This round has enough throws
+        results.push(round);
+        print("Round completed", round);
+        round = [];
+
+        if(results.length === rounds){  //All the rounds has been completed
+          print("All rounds completed: ", results);
+          return results;
+        }
+      }
+      else{
+        round.push(sampleThrows[i]);
+        print("Building round throw: ", round);
+      }
+      //recurse(roundsToGo-1);
+    }
   }
 
-  for (var i = 0; i<rounds; i++){
-  	var sampleIndex = Math.floor(Math.random()*sampleThrows.length); //random index of integers 0-2
-  	randomIndices.push(sampleIndex);								 
-  }
-  //print(randomIndices);
-
-
-  for (var i =0; i<randomIndices.length; i++){
-  	//print(sampleThrows[randomIndices[i]]);
-    finalHand.push(sampleThrows[randomIndices[i]]);    //loads finalHand array based on required number of rounds
-  }
-  print(finalHand);
-  return finalHand;
+  recurse(rounds);
 
 };
 
 //Test cases:
 //rockPaperScissors();
-//rockPaperScissors(1.5);
-//rockPaperScissors(-1);
 //rockPaperScissors(0);
-//rockPaperScissors(1);
+rockPaperScissors(1);
+rockPaperScissors();
