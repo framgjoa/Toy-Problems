@@ -38,8 +38,29 @@ var Tree = function(value){
 };
 
 Tree.prototype.countLeaves = function () {
-  // TODO: implement me!
-}
+  var leafCount = 0;
+  var findLeaves = function(tree){
+
+    if(tree.children.length ===0 ){
+      leafCount++;
+      //print("Value ", tree.value, "has no children. Leaf counter increased to: ", leafCount);
+      //Need to step back up the tree? nope
+    }else{
+      //At least one child
+      //print("Tree's children: ", tree.children, " and length ", tree.children.length);
+      for(var i = 0; i < tree.children.length; i++){
+       //print("At value ", tree.value ,", Moving to child ", tree.children[i]);
+       // All children are created as new Trees themselves, so can call function on them as trees
+       findLeaves( tree.children[i] );
+      }
+
+    }
+
+  }
+  findLeaves(this);
+  //print("Final leaf count ", leafCount);
+  return leafCount;
+} //working, tested for basic tree, multiple leaves, multiple children
 
 /**
   * You shouldn't need to change anything below here, but feel free to look.
@@ -94,3 +115,15 @@ Tree.prototype.removeChild = function(child){
     throw new Error("That node is not an immediate child of this tree");
   }
 };
+
+
+//Basic testing
+/*
+var testTree = new Tree(1);
+testTree.addChild(2);
+testTree.addChild(3);
+testTree.children[0].addChild(4);
+testTree.children[0].addChild(5);
+testTree.children[0].addChild(6);
+testTree.countLeaves();
+*/
