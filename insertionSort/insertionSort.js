@@ -39,7 +39,7 @@
 // It will transform an array of numbers into an array of valid objects.
 var testingTransform = function(array) {
   var transform = [];
-  
+
   for (var i = 0; i < array.length; i++)
     transform.push({value: array[i], i: i});
 
@@ -48,6 +48,29 @@ var testingTransform = function(array) {
 
 var insertionSort = function(array
 ) {
-  // Your code goes here. Feel free to add helper functions if needed.
+  for(var i = 1; i < array.length; i++){
+    // Start loop at 1 since will leave first element of array in original position
+    var tempValue = array[i];
+    for(var j = i+1; j < array.length; j++){
+      //Loops will be searching in following pattern:
+      //[i'th, j'th, stuff, stuff, stuff]
+      //[i'th, stuff, j'th, stuff, stuff]
+      //...
+      //[stuff, stuff, i'th, stuff, j'th]
+      //[stuff, stuff, stuff, i'th, j'th]
+      if (array[i] > array[j] ){
+        //print("Found a case to swap! " , array[i], " at ", i, " with ", array[j], " at ", j);
+        //Swap in place. Already have array[i] saved as tempValue so can overwrite in array
+        array[i] = array[j];
+        array[j] = tempValue;
+      }
+    }
+  }
+
+  //print("Final array", array);
   return array;
-};
+}; // Basic tested, working
+
+//Basic testing
+//var testArr = [1,2,3,4,5,1];
+//insertionSort(testArr);
