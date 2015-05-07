@@ -11,4 +11,24 @@
 
 // Solved in O(n) time with O(1) memory
 var sumArray = function(array) {
+  //Sort array largest to smallest
+  array.sort(function(a,b){
+    return b-a;
+  });
+
+ // print("Sorted array: ", array);
+  var tempGreatest = array[0];   // Base case. Problem assumes array.length >=1
+
+  //Keep track of the tempGreatest. If if goes down with the addition of a new value, STOP
+  for(var i = 1; i < array.length; i++){
+    if(tempGreatest + array[i] > tempGreatest){
+      //print("Incrementing tempGreatests", tempGreatest, " with ", array[i])
+      tempGreatest = tempGreatest + array[i];
+      //print("New greatest: ", tempGreatest);
+    }
+  }
+  //print("Final greatest sum: ", tempGreatest);
+  return tempGreatest;
 };
+
+//sumArray([1,2,5,-1, 0]);
