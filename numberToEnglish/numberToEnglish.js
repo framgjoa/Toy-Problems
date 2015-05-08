@@ -54,5 +54,47 @@ var numbersToPlace = {
 };
 
 Number.prototype.toEnglish = function () {
-  // return my value as english words
+  // Identify how many significant figures the number has
+  print("number ", this);
+  var number = this;
+
+// To support decimals
+  if (number%1 !==0){
+    //Type cooerce the number to be able to use IndexOf
+    //Some of this code recycled from fractionConverter
+    var tempNumAr = number.toString().split('');
+    var decimalPlace = tempNumAr.indexOf('.');
+    var decimalSigFigs = tempNumAr.slice(decimalPlace +1).join('');
+    var figsReduced = decimalSigFigs.slice();
+    print("Found decimal point at ", decimalPlace, "decimal sig figs: ", decimalSigFigs);
+
+  }
+  //Need to include the character space occupied by the decimal point
+  decimalSigFigs ? decimalSigFigs++ : 0;
+
+  //Find wholeSigFigs of the number
+  print("this ", this );
+  var wholeSigFigs = number.toString().length - decimalSigFigs;
+  print("Sig figs: ", wholeSigFigs);
+
+
+  //Break wholeSigFigs into groups of three, from the 0 or decimal point
+  // 1,993,221
+
+  //Compose number from right to left, knowing how many values are in each group of three
+
+
+
+  /*
+1,993,211
+
+*/
+
+
 };
+
+(5).toEnglish();
+(11.1).toEnglish();
+
+
+
