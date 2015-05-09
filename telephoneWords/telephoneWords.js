@@ -42,5 +42,60 @@ var phoneDigitsToLetters = {
 
 
 var telephoneWords = function(digitString) {
-  // TODO: return every combination that can be spelled on a phone with these digits
+  // Return every combination that can be spelled on a phone with these digits
+  var results = [];
+  var buildingString = '';
+  var possibleLetters = [];
+  var digitArray = digitString.toString().split('');
+  //print(digitString.toString().length)
+  var resultsCounter=0;
+
+  //Need to know when to stop building results array.
+  //This depends on the possibilites per digit in the digit string
+  for (var i = 0; i<digitArray.length; i++){
+    //print("Possiblites of letters per key ", digitArray[i], " is ", phoneDigitsToLetters[digitArray[i]].length);
+    resultsCounter = resultsCounter + phoneDigitsToLetters[digitArray[i]].length;
+    //print("results counter: ", resultsCounter);
+  }
+
+
+  for (var i =0; i< digitArray.length; i++){
+    //First need to load a possible array of letters per position
+
+    //print("On numeral ", digitArray[i], " letter ", phoneDigitsToLetters[digitArray[i]]);
+    possibleLetters.push( phoneDigitsToLetters[digitArray[i]] );
+    print("Possibles arrays: ", possibleLetters);
+
+
+    var recurse = function(possibleLetters){
+      if(buildingString.length === digitArray.length){
+        //Base break case
+        results.push(buildingString);
+        print("Full string completed: ", buildingString);
+        print("Results so far: ", results);
+        buildingString = '';
+        // How to know when results is full? (Now: ResultsCounter calculated above)
+        // The number of permutations will vary depending on if 0 or 1 are in the string....
+        // For now... Get recursion working then think on this
+        if(results === resultsCounter ){
+          //All possible permuations found
+          print("All results found: ", results);
+          return results;
+        }
+      }else{
+        //Keep building the possibilites
+        //Recurse something in here. Like PRS, except non-uniform arrays of letters to pick from...
+        //Don't want to use n for-loops either...
+
+        buildingString = buildingString+possibleLetters[i][i];
+        //Pop a letter out once added to string?
+
+        }
+
+    }
+    recurse(possibleLetters);
+  }
 };
+
+//telephoneWords(1115);
+telephoneWords(666); //"Mom" for Mothers' Day :)
