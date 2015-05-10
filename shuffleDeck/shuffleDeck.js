@@ -33,6 +33,25 @@
 
 var shuffleDeck = function(deck) {
   // Your code here
+  //print("deck ", deck.length);
+  var randomDeck = [];
+  var copy = deck.slice(); //this copy will have cards removed
+
+
+  for (var i =0; i<deck.length; i++){ //need to copy deck since need for-end condition to be steady
+    var randomIndex = Math.floor( Math.random() * copy.length ); //pick a random index from remaining cards
+    randomDeck.push(copy[randomIndex]);                   //put that card into the shuffled deck
+    copy.splice(randomIndex, 1);                          //take it out of the unshuffled deck
+                                                         //splice kind of a costly operation
+  }
+
+  //Linear-ish. Only step through original deck once.
+  //But splice is costly. Could save an object storing "used" incidices for constant time look-up
+  //
+
+
+  //print(randomDeck);
+  return randomDeck;
 };
 
 // Ordered deck generator provided for your testing convenience
@@ -50,3 +69,6 @@ var orderedDeck = function() {
 
   return deck;
 };
+
+
+shuffleDeck(orderedDeck());

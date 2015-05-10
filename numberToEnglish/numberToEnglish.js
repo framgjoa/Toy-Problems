@@ -56,7 +56,7 @@ var numbersToPlace = {
 Number.prototype.toEnglish = function () {
   // Identify how many significant figures the number has
   print("number ", this);
-  var number = this;
+  var number = this.valueOf(); //Ensure integer
 
 // To support decimals
   if (number%1 !==0){
@@ -77,18 +77,25 @@ Number.prototype.toEnglish = function () {
   var wholeSigFigs = number.toString().length - decimalSigFigs;
   print("Sig figs: ", wholeSigFigs);
 
+  //Three main cases
+  //Less than 20
+  if(numToWords[n]){
+
+  }else if(n<100){
+
+  }else{
+    if (n<1000)
+  };
+
+  // Mutlple of 20-100
+  // < 100 but not special
+
 
   //Break wholeSigFigs into groups of three, from the 0 or decimal point
   // 1,993,221
 
   //Compose number from right to left, knowing how many values are in each group of three
 
-
-
-  /*
-1,993,211
-
-*/
 
 
 };
