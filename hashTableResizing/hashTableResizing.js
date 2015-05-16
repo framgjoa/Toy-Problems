@@ -12,23 +12,68 @@ var makeHashTable = function(){
   var storage = [];
   var storageLimit = 4;
   var size = 0;
-  result.insert = function(/*...*/ 
-){
-    // TODO: implement `insert`
+
+  result.insert = function(key, value){
+
+    // Check the index (hashed) value of the key
+    var tempIndex = getIndexBelowMaxForKey(key, storageLimit);
+    print("tempIndex if ", tempIndex);
+    if (!storage[tempIndex]){
+         // If no collisions, insert
+         var tempArray = [];
+         tempArray.push(key);
+         tempArray.push(value);
+         print("here");
+         storage[tempIndex].push(tempArray);
+         size++;
+         this.resize(size, storageLimit);
+         print("Inserted, current size ", this.size, " storage limit : ", this.storageLimit);
+    }
+    else{
+      // If collision, make a bucket
+      // Put existing values into bucket
+      print("tempIndex else ", tempIndex);
+      var tempBucket = storage[tempIndex];
+      // Add new value to bucket
+      var tempArray = new Array(key, value);
+      tempBucket.push(tempArray);
+      // Put bucket in same spot
+      storage[tempIndex] = tempBucket;
+      size++;
+      this.resize(size, storageLimit);
+      print("Inserted, current size ", this.size, " storage limit : ", this.storageLimit);
+    }
   };
 
-  result.retrieve = function(/*...*/ 
-){
-    // TODO: implement `retrieve`
+  result.retrieve = function(key){
+   // No resizing checks necessary
+   // Find index of the key
+   print("Retrieving! ", key)
+    var tempIndex = getIndexBelowMaxForKey(key);
+    return (storage[tempIndex]) ? (storage[tempIndex][key]) : undefined;
+
   };
 
-  result.remove = function(/*...*/ 
-){
-    // TODO: implement `remove`
+  result.resize = function(size, storageLimit){
+    print("Resizing!");
+    if(size/storageLimit >= 0.75){
+        this.storageLimit = storageLimit*2;
+        print("Now bigger! Now: ", this.storageLimit);
+    }else if(size/storageLimit <= 0.25){
+      this.storageLimit = storageLimit/2;
+      print("Now smaller! Now: ", this.storageLimit);
+    }
   };
 
-  }
-
+  result.remove = function(key){
+    var tempIndex = getIndexBelowMaxForKey(key);
+    if (storage[tempIndex][key]){
+      delete storage[tempIndex][key];
+      size--;
+      this.resize(size, storageLimit);
+      print("Removed, current size ", this.size, " storage limit : ", this.storageLimit);
+    }
+  };
   return result;
 };
 
@@ -44,3 +89,14 @@ var getIndexBelowMaxForKey = function(str, max){
   }
   return hash % max;
 };
+
+
+//basic testing
+var test = makeHashTable();
+test.insert("foo", "bar");
+test.insert("more", "stuff");
+test.insert("ug", "blah");
+test.insert("Saturday", "morning");
+test.insert("You", "know nothing, Jon Snow");
+test.remove("foo");
+

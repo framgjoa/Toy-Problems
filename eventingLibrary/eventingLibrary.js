@@ -19,8 +19,27 @@
  *   listeners.
  * - It is not necessary to write a way to remove listeners.
  */
+// events = {'click': [function1, function2]};
+
 
 var mixEvents = function(obj) {
   // TODO: Your code here
+  var storage = {};
+
+  obj.trigger = function(event){
+    // If exists in storage, nothing. Otherwise, call it
+    // Check number of arguments, since can have multiple arguments
+
+
+    //callback.apply(objs,args)
+  };
+
+  obj.on = function(event, callback){
+    //
+    // storage[event] = storage[event] || [];
+    // storage[event].push(callback)
+
+  };
+
   return obj;
 };
