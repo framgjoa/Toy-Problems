@@ -2,7 +2,7 @@
  * Assignment: Write a function that returns true if a linked list contains a cycle, or false if it terminates somewhere
  *
  * Explanation:
- * 
+ *
  * Generally, we assume that a linked list will terminate in a null next pointer, as follows:
  *
  * A -> B -> C -> D -> E -> null
@@ -37,4 +37,48 @@ var Node = function(value){
 
 var hasCycle = function(linkedList){
   // TODO: implement me!
+  var vistedNodes = {};
+
+  var stepThru = function(linkedList){
+    //print("Stepping thru...")
+    while(linkedList.value && linkedList.next){
+      print("Stepping at ", linkedList.value);
+      //Need a break case to identify cycle
+      if(!vistedNodes[linkedList.value] && linkedList.next ===null){
+        print("End of linked list, no cycles found");
+        return false;
+      }
+      else if (vistedNodes[linkedList.value]){
+        print("Linked list has a cycle of ", vistedNodes);
+        return true;
+      } else if(linkedList.next){
+        vistedNodes[linkedList.value] = true;
+        stepThru(linkedList.next);
+      }
+      // else{
+      //   vistedNodes[linkedList.value] = true;
+      //   print("End of linked list, no cycles found");
+      //   return false;
+      // }
+    }
+     vistedNodes[linkedList.value] = true;
+        print("End of linked list, no cycles found");
+        return false;
+  }
+
+  stepThru(linkedList);
+  print("No cycles found on linkedList");
+  return false;
 };
+
+
+
+//Example code:
+  var nodeA = Node('A');
+  var nodeB = nodeA.next = Node('B');
+  var nodeC = nodeB.next = Node('C');
+  var nodeD = nodeC.next = Node('D');
+  var nodeE = nodeD.next = Node('E');
+  hasCycle(nodeA); // => false
+  // nodeE.next = nodeB;
+  // hasCycle(nodeA); // => true
