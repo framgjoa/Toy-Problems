@@ -12,14 +12,37 @@
 
 var multiply = function(x, y) {
   // TODO: should return the product of x * y
+
+  return x * y;
 };
 
 var divide = function(x, y) {
   // TODO: should return the dividend of x / y
+  var result= (x / y).toString().split('');
+  print(result);
+
+  if(result.indexOf('.') >0){
+    var decimalPointIndex = result.indexOf('.');
+    print("Found decimal point at ", decimalPointIndex)
+    //Rounding up logic
+    if(result[decimalPointIndex+5] && result[decimalPointIndex +5] >= 5){
+      result[decimalPointIndex+3]++;
+    }
+
+    result.splice(decimalPointIndex + 4, result.length);
+    var allDone =result.join('');
+  }
+
+  return allDone;
 };
 
 var modulo = function(x, y) {
   // TODO: should return the remainder of x / y
+  return x % y;
 };
 
 
+//Tests
+print("Multiplies: ", multiply(2.1,4) );
+print("Divides: ", divide(4,3));
+print("Modulo: ", modulo(3,2));
