@@ -82,3 +82,25 @@ var hasCycle = function(linkedList){
   hasCycle(nodeA); // => false
   // nodeE.next = nodeB;
   // hasCycle(nodeA); // => true
+
+
+  //Solution code notes
+  /*
+  Have two pointers pointing to difference places in the linked list
+  If the pointers point to same node, indication of a cycle
+  next = null may never occur when have a cycle
+  pointer move at twice the speed
+  var fast = linkedList;
+  var slow = linkedList;
+  var pause = true;
+
+  while(fast = fast.next){ //While is assigning new values, using the new value for truth test
+    if (fast ===slow) {return true;} //base case, indicates there is a cycle, should exit
+    if (!pause) {slow = slow.next;}
+    pause = !pause;
+  }
+  return false;
+
+  */
+
+
