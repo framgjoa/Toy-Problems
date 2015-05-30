@@ -34,8 +34,8 @@ var balancedParens = function(input){
     '[' : ']',
     '{' : '}'
   };
-  //var parenOpens = [ '(', '[', '{'];  //same index per array for their open:close pair
-  //var parensClosed = [')', ']', '}'];
+  var parenOpens = [ '(', '[', '{'];  //same index per array for their open:close pair
+  var parensClosed = [')', ']', '}'];
   print("Case of: ", input)
 
   for(var i = 0; i <input.length; i++){
