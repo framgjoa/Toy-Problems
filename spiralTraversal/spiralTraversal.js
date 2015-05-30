@@ -16,10 +16,40 @@
 
 var spiralTraversal = function(matrix){
   var colLength = matrix.length;
-  var rowLength = matrix[0].length;
+  var rowLength = matrix[0].length-1;
+  var results = [];
+
+  // Keep track of minRow, maxRow, minCol, maxCol (++ mins, --maxs)
+
+  // Break loop when min> max
+  while(startRowIndex <= endRowIndex && startColIndex <=endColIndex){
+    for(){
+
+
+      }
+    startRowIndex++;
+    for(){
+
+    }
+    endColIndex--;
+    }
+    if(){}//check single column case
+    for(){
+
+    }
+    endRowIndex--;
+    if(){}//check single column case
+    for(){
+
+    }
+    startColIndex++;
+
+  };
+
+
   // Can know how far spiraled in based on length of results
   // Final results will be done when results.length = colLength * rowLength
-  var results = [];
+
   // We can know "where" we are in the spiral based on length of results, too
   // [1, 2, 3, 6, 9, 8, 7, 4, 5]
   // firstRow (rowLength) -> last col (colLength -1) -> last row (rowLength-1) ->

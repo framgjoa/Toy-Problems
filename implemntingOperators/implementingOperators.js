@@ -11,13 +11,18 @@
 
 
 var multiply = function(x, y) {
-  // TODO: should return the product of x * y
+  // Return the product of x * y
+  // Edge cases:
+  // x or y zero
+  // if x or y but not both negative: mulitply abs val return opposites
+  //
+
 
   return x * y;
 };
 
 var divide = function(x, y) {
-  // TODO: should return the dividend of x / y
+  // Return the dividend of x / y
   var result= (x / y).toString().split('');
   print(result);
 
@@ -37,7 +42,7 @@ var divide = function(x, y) {
 };
 
 var modulo = function(x, y) {
-  // TODO: should return the remainder of x / y
+  // Return the remainder of x / y
   return x % y;
 };
 
@@ -46,3 +51,5 @@ var modulo = function(x, y) {
 print("Multiplies: ", multiply(2.1,4) );
 print("Divides: ", divide(4,3));
 print("Modulo: ", modulo(3,2));
+
+//To-do: terror mode: bitwise operators
