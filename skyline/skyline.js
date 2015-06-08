@@ -9,7 +9,7 @@ var skyline = function(array){
   var finalSkyline = [];
 
   for(var i =0; i<array.length; i++){
-    //array[i][0] is the x-coodianate start
+    //array[i][0] is the x-coodinate start
     var start = array[i][0];
     //array[i][1] is the height
     var currentHeight = array[i][1];
@@ -20,6 +20,7 @@ var skyline = function(array){
 
     // Need to make sure the finalSkyline array has defined elements("0")
     // through the relevant building location
+    // Otherwise, the if-statement checking the maximum height will return undefined
     for(var m = 0; m< end; m++){
       if(!finalSkyline[m]){
         finalSkyline[m] = 0;
@@ -34,12 +35,13 @@ var skyline = function(array){
         finalSkyline[j] = currentHeight;
       }
 
-    }
 
+
+    }
   }
 
   print("Final skyline", finalSkyline);
   return finalSkyline;
 };
 
-skyline([ [1,1,1], [3,2,2] , [0,5,3], [3,1,1]]);
+skyline([ [1,1,1], [3,2,2] ,  [3,1,1]]);
