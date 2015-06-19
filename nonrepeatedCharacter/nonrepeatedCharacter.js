@@ -7,41 +7,32 @@
  */
 
 var firstNonRepeatedCharacter = function(string) {
-  // TODO: your solution here
-  var tempString = string;
-  var characterBase = [];
-  var result = [];
-  var foundOnce = false;
-  var foundBase = [];
+ var storage = {};
+  var results;
 
-var checkString = function(string){
+  for(var i = 0; i < string.length; i++){
+    var character= string[i];
 
-  if (foundOnce){
-	return result;
-	}
+    //first time the character appears, count it
+    if(!storage[character]){
+        storage[character] = 1;
+      }else{
+    //second or more time, incriment it
+        storage[character] = storage[character]+ 1;
+    }
+  }
 
-  for (var i = string.length -1; i >= 0; i--){      
-   	if (characterBase.indexOf(string[i]) === -1){
+  for(var i = 0; i < string.length; i++){
+    var character= string[i];
+    if(storage[character] === 1){
+      results= character;
 
-  		characterBase.push( string[i] ); //loads array of found characters
-  		tempString.slice(0,-1);			  //removes letter just checked
-  		print (characterBase);
-  		checkString(tempString);			//checks the rest of string
-  		
-  	}
-  else{
-  		foundBase[i] = true;
-  		result = string[i];
-  		return;
-  	}
     }
 
+  }
 
-    };
-
-checkString(tempString);
-print(result);
-return result;
+  return results ? results: "sorry";
 };
 
-firstNonRepeatedCharacter("AAAABAAA");
+firstNonRepeatedCharacter('AAA'); //bug: this passes A
+//firstNonRepeatedCharacter('ABCABCDABC');
