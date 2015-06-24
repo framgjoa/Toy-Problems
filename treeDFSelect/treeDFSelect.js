@@ -36,41 +36,21 @@ var Tree = function(value){
 };
 
 Tree.prototype.DFSelect = function(filter) {
-//code here
-//unclear if the filter function will have two parameters (value, depth)...
-   var results = [];
-   var depthCounter = 0;
-
-   if (this.children.length>0){
-
-      //recurse in here
-
-      for(var i = 0; i<children.length; i++){
-
-        var checkChildren = function(){
-          depthCounter++;
-          //recurse on the first children (deeper) first
-         filter(this.children[i]);
-
-
-          }
-         checkChildren(this.children[i]);
-
-      }
+  var results = [];
+  var subroutine = function(node,depth) {
+    if (filter(node.value, depth)) {
+      results.push(node.value);
     }
-    else{   //break case if node has no children
-      //need to pass those passing filter into results array in here somewhere
-      //apply filter's truth function  ==> passed as second argument in anon function?
-      if(filter(this.value)){     /*&& depthCounter===depth *///where supposed to get depth truth-test from?
-        results.push(this.value);   //Need to select exact child from array, should be on it by navigation
+    for (var i = 0; i < node.children.length; i++) {
+      var child = node.children[i];
+      subroutine(child,depth+1);
+    }
+  };
+  subroutine(this,0);
 
-      }
+  return results;
 
-        }
-
-
-
-};  //not tested on actual trees, no major syntax errors
+};
 
 
 
