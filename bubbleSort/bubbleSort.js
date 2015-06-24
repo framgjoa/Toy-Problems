@@ -50,9 +50,8 @@ var bubbleSort = function(array) {
       break;
     }
   }
-//print("Finished: ", array);
-return array;
-
+  //print("Finished: ", array);
+  return array;
 };
 
 var swapPositions = function(array, position1, position2){
@@ -61,8 +60,6 @@ var swapPositions = function(array, position1, position2){
 	array[position2] =  tempValue;
 	return array;
 }
-
-
 
 
 var testArr1 = [2, 1, 3];
