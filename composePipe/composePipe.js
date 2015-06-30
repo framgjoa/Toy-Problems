@@ -36,39 +36,44 @@
 var compose = function(){
   var args = Array.prototype.slice.call(arguments);
 
-
-
-for (var i = arguments.length -1 ; i<=0; i--){
-  var currentFunction = function(value) { arguments[arguments.length-1](value) };
-
-  var currentCompose = currentFunction((value), function(data){   //can use callback to seed next function?
-
-  })
-
-  arguments[arguments.length-1](value);
-
-}
-
+ //return function that passes the value through each function
+  //moves right to left
+  return function(val){
+    for(var i = args.length - 1; i >= 0; i--){
+      val = args[i](val);
+    }
+    return val;
+  };
 
 };
 
-var pipe = function(){  //Need to pass in the value called for all the functions
-  var args = Array.prototype.slice.call(arguments);
-  var length = args.length;
-  var i = 0;
-  print(this);
-  var tempValue = this; //Not sure how to get value called on piped functions
-  for(var i =0; i< length; i++){
-    var tempValue = arguments[i](tempValue);
+ //var greet = function(name){ return 'hi: ' + name;}
+// var exclaim = function(statement) {
+//print(statement.toUpperCase() + '!');
+//  return statement.toUpperCase() + '!';}
+// var welcome = compose(greet, exclaim);
+ //print( welcome('phillip') ); // 'hi: PHILLIP!'
 
-  }
-  print(tempValue);
-  return tempValue;
+
+
+var pipe = function(){  //Need to pass in the value called for all the functions
+ var args = Array.prototype.slice.call(arguments);
+  print("Arguments are: ", args);
+ //return function that passes the value through each function
+  //moves left to right
+  return function(value){
+    for(var i = 0; i <args.length; i++){
+      print("Piping ", args[i], " on ", value);
+      value = args[i](value);
+      print("Current value: ", value)
+    }
+    return value;
+  };
 };
 
 //Pipe Example:
-   var add2 = function(number){ return number + 2; };
-   var multiplyBy3 = function(number){ return number * 3; };
-   pipe(add2, multiplyBy3)(5); // 21
-   pipe(add2, multiplyBy3, multiplyBy3)(5); // 63
+   // var add2 = function(number){ return number + 2; };
+   // var multiplyBy3 = function(number){ return number * 3; };
+   // pipe(add2, multiplyBy3)(5); // 21
+   // pipe(add2, multiplyBy3, multiplyBy3)(5); // 63
 
