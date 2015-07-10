@@ -1,5 +1,3 @@
-//
-//
 // Skyline takes an array of buildings outputs the final skyline
 // Each building is described by an array with three elements: start point, height, width
 // Input array will appear like [ [1,1,1], [3,2,2] ]
@@ -27,16 +25,11 @@ var skyline = function(array){
         print("Adding blanks to skyline at ", m);
       }
     }
-
-
     for(var j = start; j<end; j++ ){
        print("Adding buildings to skyline at ", j);
      if(finalSkyline[j]<currentHeight){
         finalSkyline[j] = currentHeight;
       }
-
-
-
     }
   }
 

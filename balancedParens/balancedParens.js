@@ -53,8 +53,6 @@ var balancedParens = function(input){
     // print("Stack length: ", stack.length)
     // return stack.length ===0; //this also covers the trival case (no brances)
     }
-
-
   }
 //need the ANY condition [ ([{ ]
   print("Stack length: ", stack.length, !stack.length);
@@ -74,6 +72,26 @@ var balancedParens = function(input){
 
 //print(leadingOpen&&closingClosed);
 //return (leadingOpen&&closingClosed);
+};
+
+var matchParensWithRexEx = function (string) {
+    var reg = /[^(()\[\]{})]/g;
+    var parens = string.replace(reg, "");
+    //parens returns the string stripped of non-parenthesis characters
+
+    var pair = { "(" : ")" , "{" : "}" , "[" : "]" };
+
+    var truthy = true;
+
+    //loop through to ensure that every parenthesis character is mirrored
+    for (var i=0, backcount=(parens.length-1-i);
+         i<((parens.length)/2); i++, backcount--) {
+        if (pair[parens[i]] !== parens[backcount]) {
+            truthy = false;
+        }
+    }
+
+    return truthy;
 };
 
 // Examples:
