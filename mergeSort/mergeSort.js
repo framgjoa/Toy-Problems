@@ -98,32 +98,45 @@
 
 
 var mergeSort = function(array) {
-  var copy = array.splice();
-  var sublist = [];
- // copy.split(',');
-  for (var i = 0; i < array.length; i++){
-    var tempSub = [];
-    tempSub.push(array[i]);
-    sublist[i] = tempSub;
+  // Trivial case, simple arrays already sorted
+  if(array.length <= 1){
+    return array;
   }
-  //print("sublists: ",  sublist);
 
-  while(sublist.length > 1){ //until the sublist array of arrays is reduced to a single, large sorted array
-    for (var i = 0; i < sublist.length-1; i++) //length-1 in case odd number of pairs
-      var pairs = [];                           //thought about i+2 instead of i++, think I can s
-      var tempPair = sublist[i]<sublist[i+1] ? [sublist[i], sublist[i+1]] : [sublist[i+1], sublist[i]];
-      //tempPair is not loading correctly
-      //print("tempPair: ", tempPair);
-      //thought about i=i+2 for this for loop, but think if I set this tempPair array into first position
-      //we'll be looking at the next two singleton arrays already
-      //if splice out second singleton array
-      sublist[i] = tempPair;
-      print(sublist)
-      sublist.splice(i+1, 1);
-      //print("reduced array: ", sublist);
-  }
-  return sublist;
+  // Splitting array into two halves
+  var midpoint = Math.floor(array.length/2);
+  var left = array.slice(0, midpoint);
+  var right = array.slice(midpoint);
+  print("Midpoint: ", midpoint, ", Left: ", left, ", Right: ", right);
+
+  var sortedLeft = mergeSort(left);
+  var sortedRight = mergeSort(right);
+
+  //print("SortedLeft ", sortedLeft);
+  //print("SortedRight ", sortedRight);
+
+  return merge(mergeSort(left), mergeSort(right));
 };
+
+var merge = function(left,right){
+  // Assume each array left and right are internally sorted
+
+  var result = [];
+  var i = 0, j=0;
+
+  while(i < left.length && j < right.length){
+    // Need to merge them by finding smallest value of each array
+    result.push(Math.min(left[i],right[j] ));
+    left[i] < right[j] ? i++ : j++;
+    print("Building result ", result, ", i: ", i, "j: ", j);
+  }
+
+  var remaining = i === left.length ? right.slice(j) : left.slice(i);
+  print("Remaining: ", remaining, ", Result: ", result.concat(remaining));
+  return result.concat(remaining);
+};
+
+
 
 var testArr = [4,7,4,3,9,1,2];
 mergeSort(testArr);
