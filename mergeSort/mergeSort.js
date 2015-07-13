@@ -98,7 +98,6 @@
 
 
 var mergeSort = function(array) {
-  // Your code here.
   var copy = array.splice();
   var sublist = [];
  // copy.split(',');
@@ -107,27 +106,23 @@ var mergeSort = function(array) {
     tempSub.push(array[i]);
     sublist[i] = tempSub;
   }
-  print("sublists: ",  sublist);
+  //print("sublists: ",  sublist);
 
   while(sublist.length > 1){ //until the sublist array of arrays is reduced to a single, large sorted array
     for (var i = 0; i < sublist.length-1; i++) //length-1 in case odd number of pairs
       var pairs = [];                           //thought about i+2 instead of i++, think I can s
       var tempPair = sublist[i]<sublist[i+1] ? [sublist[i], sublist[i+1]] : [sublist[i+1], sublist[i]];
       //tempPair is not loading correctly
-      print("tempPair: ", tempPair);
+      //print("tempPair: ", tempPair);
       //thought about i=i+2 for this for loop, but think if I set this tempPair array into first position
       //we'll be looking at the next two singleton arrays already
       //if splice out second singleton array
       sublist[i] = tempPair;
       print(sublist)
       sublist.splice(i+1, 1);
-      print("reduced array: ", sublist);
-
-
+      //print("reduced array: ", sublist);
   }
   return sublist;
-
-
 };
 
 var testArr = [4,7,4,3,9,1,2];
