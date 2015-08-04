@@ -17,29 +17,27 @@ var evenOccurrence = function(arr) {
   for (var i =0; i< arr.length; i++){
     if(occuranceCount[arr[i]]){
       occuranceCount[arr[i]]++;
-      //  print("Incrimented ", arr[i], " to ", occuranceCount[arr[i]]);
-
-      //While the occurace object is being populated, to be efficient,
-      //We may also check for the first occurance of an even count
-      //This can only happen if the key:value already set up in object
-      if(occuranceCount[arr[i]] %2 ===0){
-        //print("Found even occurance! ", arr[i]);
-        return arr[i];
-      }
-    }
-    else{
+    }else{
       // Key did not previously exist, now initializing as 1
       occuranceCount[arr[i]] = 1;
     }
-
   }
- //print("No even cases found in arr: ", arr);
+
+  for(var i = 0; i < arr.length; i++){
+    if(occuranceCount[arr[i]] %2 ===0){
+      //We may also check for the first occurance of an even count
+        print("Found even occurance! ", arr[i]);
+        return arr[i];
+      }
+    }
+
  //No even occurances were found. This is fine outside of the for-loop since
  //it has a postive return statement that will break and not touch this return null
+ print("No occurances");
  return null;
 
 };
 
 //Test cases
-//var test1 = [1, 2, 3, 4, 2];
+//var test1 = [1, 2, 3, 4, 2, 3];
 //evenOccurrence(test1);
