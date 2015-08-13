@@ -40,61 +40,32 @@ var phoneDigitsToLetters = {
   9: 'WXYZ'
 };
 
-
 var telephoneWords = function(digitString) {
   // Return every combination that can be spelled on a phone with these digits
   var results = [];
-  var buildingString = '';
-  var possibleLetters = [];
   var digitArray = digitString.toString().split('');
-  //print(digitString.toString().length)
-  var resultsCounter=0;
 
-  //Need to know when to stop building results array.
-  //This depends on the possibilites per digit in the digit string
-  for (var i = 0; i<digitArray.length; i++){
-    //print("Possiblites of letters per key ", digitArray[i], " is ", phoneDigitsToLetters[digitArray[i]].length);
-    resultsCounter = resultsCounter + phoneDigitsToLetters[digitArray[i]].length;
-    //print("results counter: ", resultsCounter);
-  }
-
-
-  for (var i =0; i< digitArray.length; i++){
-    //First need to load a possible array of letters per position
-
-    //print("On numeral ", digitArray[i], " letter ", phoneDigitsToLetters[digitArray[i]]);
-    possibleLetters.push( phoneDigitsToLetters[digitArray[i]] );
-    print("Possibles arrays: ", possibleLetters);
-
-
-    var recurse = function(possibleLetters){
-      if(buildingString.length === digitArray.length){
+    var recurse = function(word, digits){
+      if(digits.length === 0){
         //Base break case
-        results.push(buildingString);
-        print("Full string completed: ", buildingString);
+        results.push(word);
         print("Results so far: ", results);
-        buildingString = '';
-        // How to know when results is full? (Now: ResultsCounter calculated above)
-        // The number of permutations will vary depending on if 0 or 1 are in the string....
-        // For now... Get recursion working then think on this
-        if(results === resultsCounter ){
-          //All possible permuations found
-          print("All results found: ", results);
-          return results;
-        }
-      }else{
-        //Keep building the possibilites
-        //Recurse something in here. Like PRS, except non-uniform arrays of letters to pick from...
-        //Don't want to use n for-loops either...
-
-        buildingString = buildingString+possibleLetters[i][i];
-        //Pop a letter out once added to string?
-
+        return;
         }
 
+      //Keep building the possibilites
+      var currentDigit = digits[0];
+      var remainingDigits = digits.slice(1);
+      var letters = phoneDigitsToLetters[currentDigit].split('');
+
+      for(var i = 0; i < letters.length; i++){
+        recurse(word + letters[i], remainingDigits);
+      }
     }
-    recurse(possibleLetters);
-  }
+
+    recurse("", digitArray);
+    print("Final results ", results);
+    return results;
 };
 
 //telephoneWords(1115);
