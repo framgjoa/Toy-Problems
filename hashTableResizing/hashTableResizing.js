@@ -12,70 +12,93 @@ var makeHashTable = function(){
   var storage = [];
   var storageLimit = 4;
   var size = 0;
+  var resizing = false;
+
+  function resize(newSize){
+     print("Inside resize storage ", storage, "for ", newSize);
+     var copy = storage;
+     storageLimit = newSize;
+     storage = [];
+     size = 0;
+     copy.forEach(function(pairs) {
+       pairs.forEach(function(pair){
+         result.insert(pair[0], pair[1]);
+      });
+    });
+     print("Result after resizing", result);
+  }
+
+
+//*************************//
 
   result.insert = function(key, value){
+    var index = getIndexBelowMaxForKey(key, storageLimit);
+    storage[index] = storage[index] || [];
+    var pairs = storage[index];
+    var pair;
+    var replaced = false;
+    print("Inserting ", pairs);
 
-    // Check the index (hashed) value of the key
-    var tempIndex = getIndexBelowMaxForKey(key, storageLimit);
-    print("tempIndex if ", tempIndex);
-    if (!storage[tempIndex]){
-         // If no collisions, insert
-         var tempArray = [];
-         tempArray.push(key);
-         tempArray.push(value);
-         print("here");
-         storage[tempIndex].push(tempArray);
-         size++;
-         this.resize(size, storageLimit);
-         print("Inserted, current size ", this.size, " storage limit : ", this.storageLimit);
+    for (var i = 0; i < pairs.length; i++) {
+      pair = pairs[i];
+      if (pair[0] === key) {
+        pair[1] = value;
+        replaced = true;
+      }
     }
-    else{
-      // If collision, make a bucket
-      // Put existing values into bucket
-      print("tempIndex else ", tempIndex);
-      var tempBucket = storage[tempIndex];
-      // Add new value to bucket
-      var tempArray = new Array(key, value);
-      tempBucket.push(tempArray);
-      // Put bucket in same spot
-      storage[tempIndex] = tempBucket;
+
+    if (!replaced) {
+      pairs.push([key, value]);
       size++;
-      this.resize(size, storageLimit);
-      print("Inserted, current size ", this.size, " storage limit : ", this.storageLimit);
+      print("No need to resize after insert")
+    }
+    if(size >= storageLimit * 0.75){
+      // increase the size of the hash table
+      print("Resizing bigger");
+      resize(storageLimit * 2);
     }
   };
 
-  result.retrieve = function(key){
-   // No resizing checks necessary
-   // Find index of the key
-   print("Retrieving! ", key)
-    var tempIndex = getIndexBelowMaxForKey(key);
-    return (storage[tempIndex]) ? (storage[tempIndex][key]) : undefined;
+  result.resize = function(newSize, storageLimit){
+    var copy = this.storage;
+    storageLimit = newSize;
+    storage = [];
+    size = 0;
 
-  };
+    copy.forEach(function(pairs){
+      pairs.forEach(function(pair){
+        this.insert(pair[0], pair[1]);
+      })
 
-  result.resize = function(size, storageLimit){
-    print("Resizing!");
-    if(size/storageLimit >= 0.75){
-        this.storageLimit = storageLimit*2;
-        print("Now bigger! Now: ", this.storageLimit);
-    }else if(size/storageLimit <= 0.25){
-      this.storageLimit = storageLimit/2;
-      print("Now smaller! Now: ", this.storageLimit);
-    }
+    })
   };
 
   result.remove = function(key){
-    var tempIndex = getIndexBelowMaxForKey(key);
-    if (storage[tempIndex][key]){
-      delete storage[tempIndex][key];
-      size--;
-      this.resize(size, storageLimit);
-      print("Removed, current size ", this.size, " storage limit : ", this.storageLimit);
+    var index = getIndexBelowMaxForKey(key, storageLimit);
+    var pairs = storage[index];
+    var pair;
+    print("Removing ", key);
+    for (var i = 0; i < pairs.length; i++) {
+      pair = pairs[i];
+      if (pair[0] === key) {
+        var value = pair[1];
+        delete pairs[i];
+        size--;
+        print("No need to resize after remove");
+        if(size <= storageLimit * 0.25){
+          // decrease the size of the hash table
+          print("Resizing smaller")
+          resize(storageLimit / 2);
+        }
+        return value;
+      }
     }
   };
+
   return result;
 };
+
+
 
 // This is a "hashing function". You don't need to worry about it, just use it
 // to turn any string into an integer that is well-distributed between
@@ -99,4 +122,7 @@ test.insert("ug", "blah");
 test.insert("Saturday", "morning");
 test.insert("You", "know nothing, Jon Snow");
 test.remove("foo");
+test.remove("more");
+test.remove("ug");
+test.remove("You");
 
